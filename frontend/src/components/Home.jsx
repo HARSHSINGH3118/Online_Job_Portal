@@ -1,7 +1,6 @@
 // src/components/Home.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import bgVideo from "../assets/bg.mp4";
 
 function Home() {
   // Featured Jobs Carousel Data
@@ -103,18 +102,65 @@ function Home() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 text-gray-800">
-      {/* Optional Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute w-full h-full object-cover"
+      {/* Enhanced SVG Background with Multiple Rings */}
+      <svg
+        className="absolute top-0 left-0 w-full h-full"
+        viewBox="0 0 1200 800"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice"
       >
-        <source src={bgVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        {/* Outer ring */}
+        <circle
+          cx="600"
+          cy="400"
+          r="350"
+          fill="none"
+          stroke="#d4dae7"
+          strokeOpacity="0.3"
+          strokeWidth="4"
+        />
+        {/* Middle ring */}
+        <circle
+          cx="600"
+          cy="400"
+          r="250"
+          fill="none"
+          stroke="#c0c5d1"
+          strokeOpacity="0.3"
+          strokeWidth="3"
+        />
+        {/* Inner ring */}
+        <circle
+          cx="600"
+          cy="400"
+          r="150"
+          fill="none"
+          stroke="#a3a9b9"
+          strokeOpacity="0.3"
+          strokeWidth="2"
+        />
+        {/* Additional decorative rings */}
+        <circle
+          cx="300"
+          cy="200"
+          r="80"
+          fill="none"
+          stroke="#d4dae7"
+          strokeOpacity="0.2"
+          strokeWidth="2"
+        />
+        <circle
+          cx="900"
+          cy="600"
+          r="100"
+          fill="none"
+          stroke="#d4dae7"
+          strokeOpacity="0.2"
+          strokeWidth="2"
+        />
+      </svg>
 
-      {/* Hero Section */}
+      {/* Hero Section (placed over SVG) */}
       <div className="relative z-10 flex flex-col items-center justify-center h-screen px-4 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
           Welcome to Our Job Portal
