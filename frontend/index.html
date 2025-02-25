@@ -4,11 +4,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Online Job Portal</title>
+
+  <!-- SEO Meta Tags -->
+  <title>HireBridge </title>
+  <meta name="description"
+    content="HireBridge is the ultimate job portal connecting top talent with leading employers. Find jobs, apply easily, and get hired faster." />
+  <meta name="keywords"
+    content="jobs, career, hire, job portal, recruitment, employment, apply for jobs, tech jobs, remote jobs" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="HireBridge Team" />
+
+  <!-- Open Graph (OG) Tags for Social Media Sharing -->
+  <meta property="og:title" content="HireBridge - Find Your Dream Job" />
+  <meta property="og:description"
+    content="HireBridge connects job seekers with top companies. Explore job opportunities and start your career today!" />
+  <meta property="og:image" content="/public/HireBridge.jpg" />
+  <meta property="og:url" content="https://hirebridge.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HireBridge - Your Career Starts Here" />
+  <meta name="twitter:description"
+    content="Join HireBridge to explore thousands of job opportunities and connect with top employers." />
+  <meta name="twitter:image" content="/public/HireBridge.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/HireBridge.jpg" />
+
+  <!-- Preload Important Resources -->
+  <link rel="preload" as="image" href="/HireBridge.jpg" />
+  <link rel="preload" as="style" href="/src/styles.css" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/src/styles.css" />
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      "title": "Find the Best Jobs at HireBridge",
+      "description": "HireBridge helps you find the best job opportunities across various industries. Apply now and grow your career!",
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": "HireBridge",
+        "url": "https://hirebridge.com"
+      },
+      "jobLocationType": "TELECOMMUTE",
+      "employmentType": "Full-time"
+    }
+  </script>
 </head>
 
 <body>
+  <!-- Logo -->
+
+
   <div id="root"></div>
+
+  <!-- Main React Application -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
