@@ -16,11 +16,13 @@ const UserSchema = new mongoose.Schema(
     status: { type: String, enum: ["active", "inactive"], default: "active" },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
+    // Add this field for profile picture
+    profilePic: { type: String, default: "" },
   },
   { timestamps: true }
 );
 
-// Hash password before saving (only if modified)
+// Pre-save hook to hash the password if modified
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -28,7 +30,7 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-// Compare entered password with hashed password
+// Method to compare entered password with hashed password
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

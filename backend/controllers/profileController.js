@@ -13,11 +13,14 @@ exports.getProfile = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    const updates = req.body;
+    const updates = { ...req.body };
+
     if (req.file) {
-      // Store file path in the user document (could be resume or profile image)
-      updates.file = req.file.path;
+      // On Windows, replace backslashes with forward slashes
+      const normalizedPath = req.file.path.replace(/\\/g, "/");
+      updates.profilePic = normalizedPath;
     }
+
     const user = await User.findByIdAndUpdate(req.user.id, updates, {
       new: true,
     }).select("-password");

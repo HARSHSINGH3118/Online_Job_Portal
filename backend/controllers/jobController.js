@@ -27,19 +27,22 @@ exports.getJobById = async (req, res, next) => {
 };
 
 // Apply for a job
+// controllers/jobController.js
 exports.applyJob = async (req, res, next) => {
   try {
     const { resume, why, experience } = req.body;
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).json({ message: "Job not found" });
+
+    // Create the application
     const application = await Application.create({
       job: job._id,
       applicant: req.user.id,
       resume,
       why,
       experience,
-      status: "applied",
     });
+
     res.status(201).json(application);
   } catch (err) {
     next(err);

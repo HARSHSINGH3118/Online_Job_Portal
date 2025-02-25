@@ -1,3 +1,4 @@
+// src/components/NavBar.jsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -15,60 +16,53 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
+    <nav className="bg-white shadow">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <Link to="/" className="text-xl font-bold text-gray-700">
           Online Job Portal
         </Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav me-auto">
-            {token && user?.role === "employer" && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/employer-dashboard">
-                  Dashboard
-                </Link>
-              </li>
-            )}
-            {token && user?.role === "jobseeker" && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/jobseeker-dashboard">
-                  Dashboard
-                </Link>
-              </li>
-            )}
-            {token && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/profile">
-                  Profile
-                </Link>
-              </li>
-            )}
-          </ul>
-          <ul className="navbar-nav ms-auto">
-            {token ? (
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-light"
-                  onClick={handleLogout}
+        <div className="space-x-4 flex items-center">
+          {!token ? (
+            <>
+              <Link to="/login" className="text-gray-600 hover:text-gray-900">
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              {user?.role === "employer" && (
+                <Link
+                  to="/employer-dashboard"
+                  className="text-gray-600 hover:text-gray-900"
                 >
-                  Logout
-                </button>
-              </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
+                  Dashboard
+                </Link>
+              )}
+              {user?.role === "jobseeker" && (
+                <Link
+                  to="/jobseeker-dashboard"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Dashboard
+                </Link>
+              )}
+              <Link to="/profile" className="text-gray-600 hover:text-gray-900">
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>

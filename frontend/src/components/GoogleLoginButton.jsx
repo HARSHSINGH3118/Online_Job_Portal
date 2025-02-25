@@ -1,3 +1,4 @@
+// src/components/GoogleLoginButton.jsx
 import React from "react";
 
 function GoogleLoginButton() {
@@ -7,7 +8,10 @@ function GoogleLoginButton() {
   };
 
   return (
-    <button onClick={handleGoogleLogin} className="btn btn-danger w-100">
+    <button
+      onClick={handleGoogleLogin}
+      className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+    >
       Login with Google
     </button>
   );

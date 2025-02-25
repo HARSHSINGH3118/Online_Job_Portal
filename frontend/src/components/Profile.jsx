@@ -1,18 +1,17 @@
+// src/components/Profile.jsx
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 
 function Profile() {
-  const [profile, setProfile] = useState({});
-  const [resume, setResume] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
 
-  // Fetch the user profile on component mount
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await api.get("/profile");
-        setProfile(res.data);
+        setUserData(res.data);
       } catch (error) {
         console.error("Failed to fetch profile", error);
       }
@@ -20,68 +19,80 @@ function Profile() {
     fetchProfile();
   }, []);
 
-  // Handle file input change
   const handleFileChange = (e) => {
-    setResume(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
-  // Handle form submission to update profile with resume upload
-  const handleSubmit = async (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (!file) {
+      setMessage("Please select an image file before uploading.");
+      return;
+    }
     try {
       const formData = new FormData();
-      // Append file with field name 'file' as expected by the backend
-      if (resume) {
-        formData.append("file", resume);
-      }
-      // Optionally append additional profile fields (e.g., name, email)
-      // formData.append('name', profile.name);
-
+      formData.append("file", file);
       const res = await api.patch("/profile", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      setProfile(res.data);
+      setUserData(res.data);
       setMessage("Profile updated successfully!");
     } catch (error) {
       console.error("Profile update failed", error);
       setMessage("Profile update failed!");
     }
-    setLoading(false);
   };
 
   return (
-    <div>
-      <h2>Profile</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            <strong>Resume Upload:</strong>
-          </label>
+    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
+      <h2 className="text-2xl font-bold mb-4">Profile</h2>
+      {message && (
+        <div className="mb-3 text-center text-blue-600">{message}</div>
+      )}
+
+      <div className="mb-3">
+        <strong>Name:</strong> {userData.name}
+      </div>
+      <div className="mb-3">
+        <strong>Email:</strong> {userData.email}
+      </div>
+      <div className="mb-3">
+        <strong>Profile Picture:</strong>
+        <br />
+        {userData.profilePic ? (
+          <img
+            src={`http://localhost:5000/${userData.profilePic}`}
+            alt="Profile"
+            className="w-24 h-24 rounded-full mt-2 object-cover"
+          />
+        ) : (
+          <p className="text-gray-500 mt-2">No profile picture set.</p>
+        )}
+      </div>
+
+      <div className="border-t pt-4 mt-4">
+        <h4 className="text-lg font-semibold mb-2">Change Profile Picture</h4>
+        <form onSubmit={handleUpload}>
           <input
             type="file"
-            name="file"
             onChange={handleFileChange}
-            accept="application/pdf,image/*"
+            accept="image/*"
+            className="block w-full text-sm text-gray-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded file:border-0
+              file:text-sm file:font-semibold
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100
+              mb-2"
           />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Profile"}
-        </button>
-      </form>
-      {profile.file && (
-        <div>
-          <p>Uploaded File:</p>
-          <a
-            href={`http://localhost:5000/${profile.file}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            View File
-          </a>
-        </div>
-      )}
+            Upload
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -23,6 +23,7 @@ passport.use(
           email: profile.emails[0].value,
           googleId: profile.id,
           role: "jobseeker",
+          profilePic: profile.photos[0].value,
         });
         await user.save();
         return done(null, user);
