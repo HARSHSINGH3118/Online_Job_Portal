@@ -30,15 +30,14 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
-    // Generate JWT token after successful Google Auth
     const jwt = require("jsonwebtoken");
     const token = jwt.sign(
       { id: req.user._id, role: req.user.role },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    // In production, you might redirect and set a cookie
-    res.json({ token, user: req.user });
+    // Redirect to frontend with token as a query parameter
+    res.redirect(`http://localhost:3000/google-success?token=${token}`);
   }
 );
 

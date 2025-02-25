@@ -1,15 +1,15 @@
-// routes/profileRoutes.js
 const express = require("express");
 const router = express.Router();
 const { protect } = require("../middlewares/authMiddleware");
 const profileController = require("../controllers/profileController");
+const upload = require("../middlewares/uploadMiddleware");
 
 router.use(protect);
 
-// View user profile
+// GET /profile - View user profile
 router.get("/", profileController.getProfile);
 
-// Update user profile (e.g., update details, resume URL)
-router.patch("/", profileController.updateProfile);
+// PATCH /profile - Update profile (allows file upload for resume or profile image)
+router.patch("/", upload.single("file"), profileController.updateProfile);
 
 module.exports = router;

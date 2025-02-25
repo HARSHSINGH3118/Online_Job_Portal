@@ -29,13 +29,16 @@ exports.getJobById = async (req, res, next) => {
 // Apply for a job
 exports.applyJob = async (req, res, next) => {
   try {
-    const { resume } = req.body; // assume resume is a URL or text
+    const { resume, why, experience } = req.body;
     const job = await Job.findById(req.params.id);
     if (!job) return res.status(404).json({ message: "Job not found" });
     const application = await Application.create({
       job: job._id,
       applicant: req.user.id,
       resume,
+      why,
+      experience,
+      status: "applied",
     });
     res.status(201).json(application);
   } catch (err) {

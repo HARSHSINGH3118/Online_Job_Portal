@@ -9,10 +9,12 @@ const ApplicationSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    resume: String, // URL or text for resume
+    resume: { type: String, required: true },
+    why: { type: String, required: true },
+    experience: { type: String, required: true },
     status: {
       type: String,
-      enum: ["applied", "withdrawn", "accepted", "rejected"],
+      enum: ["applied", "withdrawn", "accepted", "rejected", "interview"],
       default: "applied",
     },
   },

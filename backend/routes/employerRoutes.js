@@ -22,4 +22,7 @@ router.delete("/jobs/:id", employerController.deleteJob);
 // View applications for jobs posted by the employer
 router.get("/applications", employerController.getApplications);
 
+// routes/employerRoutes.js
+router.patch("/applications/:id", employerController.updateApplicationStatus);
+
 module.exports = router;

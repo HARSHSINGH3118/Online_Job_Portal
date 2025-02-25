@@ -11,10 +11,13 @@ exports.getProfile = async (req, res, next) => {
   }
 };
 
-// Update profile (e.g., upload resume URL, update details)
 exports.updateProfile = async (req, res, next) => {
   try {
     const updates = req.body;
+    if (req.file) {
+      // Store file path in the user document (could be resume or profile image)
+      updates.file = req.file.path;
+    }
     const user = await User.findByIdAndUpdate(req.user.id, updates, {
       new: true,
     }).select("-password");

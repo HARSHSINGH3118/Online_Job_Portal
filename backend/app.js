@@ -22,6 +22,8 @@ app.use("/admin", require("./routes/adminRoutes"));
 app.use("/employers", require("./routes/employerRoutes"));
 app.use("/", require("./routes/jobRoutes")); // job endpoints (GET /jobs etc.)
 app.use("/profile", require("./routes/profileRoutes"));
+// In app.js, after initializing middlewares:
+app.use("/uploads", express.static("uploads"));
 
 // Global Error Handler
 const errorHandler = require("./middlewares/errorHandler");
